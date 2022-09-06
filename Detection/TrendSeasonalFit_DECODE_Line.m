@@ -1,4 +1,4 @@
-function [rec_cg, clrx, clry] = TrendSeasonalFit_DECODE_Line(sdate, line_t, path_t, path_r, ncols, nrows, proc_cols, T_cg,Tmax_cg,conse,num_c,nbands,B_detect,ephemeralDetect)
+function [rec_cg, clrx, clry] = TrendSeasonalFit_DECODE_Line(sdate, line_t, path_t, path_r, ncols, nrows, proc_cols, T_cg,Tmax_cg,conse,num_c,nbands,B_detect)
 % Spectral Break detection componenet of DEtection and Characterization of cOastal tiDal wEtland change (DECODE) 
 % GERS Lab, University of Connecticut, Storrs
 %
@@ -154,7 +154,7 @@ extend_B_detect = 8:(8+n_indices-1);
 B_detect = [B_detect, extend_B_detect];
 % maximum number of coefficient required
 % 2 for tri-modal; 2 for bi-modal; 2 for seasonality; 2 for linear; 1 for
-% water level
+% water level 
 min_num_c = 5;
 mid_num_c = 7;
 max_num_c = 9;
@@ -193,14 +193,6 @@ def_T_cg = chi2inv(def_pT_cg,length(B_detect));
 rec_cg = struct('t_start',[],'t_end',[],'t_break',[],'coefs',[],'rmse',[],...
     'pos',[],'change_prob',[],'num_obs',[],'category',[],'magnitude',[],'durchange',[],'obs',[],'bands',[],'tide',[]);
 
-%% Paramter for ephemeral change
-if ephemeralDetect
-    e_T_cg = 0.95;
-    e_conse = 4;
-    E_B_detect = [4,8,9,10,11];
-    % change T_cg from p & v to cdf
-    e_def_T_cg = chi2inv(e_T_cg,length(E_B_detect)); %e_T_cg = 0.99
-end
 
 %% @ each pixel
 % for i_ids = 1:ncols % move pixel via the column demension
@@ -210,10 +202,7 @@ if size(proc_cols,1) > 1
 end
 for i_ids = proc_cols % define in the parent funtion, which can be 1:ncols, and one col for locating a certain pixel
     % get default conse & T_cg
-    if ephemeralDetect
-    %if conducting ephemeral detection, the num_fc of this pixel should be marked
-        id_fit_start = num_fc+1; % start number of the curves for this id
-    end
+  
     conse = def_conse;
     T_cg = def_T_cg;
     n_times = def_n_times;
@@ -313,7 +302,7 @@ for i_ids = proc_cols % define in the parent funtion, which can be 1:ncols, and 
                 num_fc = num_fc + 1; % NUM of Fitted Curves (num_fc)
                 
                 % defining computed variables
-                fit_cft = zeros(max_num_c+1,nbands+n_indices-2);
+                fit_cft = zeros(max_num_c,nbands+n_indices-2);
                 % rmse for each band
                 rmse = zeros(nbands+n_indices-2,1);
                 % snow qa = 50
@@ -403,14 +392,14 @@ for i_ids = proc_cols % define in the parent funtion, which can be 1:ncols, and 
                 % Xs & Ys for computation
                 clrx = clrx(idclr);
                 clry = clry(idclr,:);
-                wl = clry(idclr);
+                wl = wl(idclr);
                 % the first observation for TSFit
                 i_start = 1;
                 % identified and move on for the next curve
                 num_fc = num_fc + 1; % NUM of Fitted Curves (num_fc)
                 
                 % defining computed variables
-                fit_cft = zeros(max_num_c+1,nbands+n_indices-2);
+                fit_cft = zeros(max_num_c,nbands+n_indices-2);
                 % rmse for each band
                 rmse = zeros(nbands+n_indices-2,1);
                 % Fmask fail qa = 40
@@ -585,7 +574,7 @@ for i_ids = proc_cols % define in the parent funtion, which can be 1:ncols, and 
                             % Step 2: model fitting
                             % initialize model testing variables
                             % defining computed variables
-                            fit_cft = zeros(max_num_c+1,nbands+n_indices-2);
+                            fit_cft = zeros(max_num_c,nbands+n_indices-2);
                             % rmse for each band
                             rmse = zeros(nbands+n_indices-2,1);
                             % value of differnce
@@ -703,7 +692,7 @@ for i_ids = proc_cols % define in the parent funtion, which can be 1:ncols, and 
                                 % conse obs 2) previous obs is less than a year
                                 if num_fc == rec_fc && i_start - i_dense >= conse
                                     % defining computed variables
-                                    fit_cft = zeros(max_num_c+1,nbands+n_indices-2);
+                                    fit_cft = zeros(max_num_c,nbands+n_indices-2);
                                     % rmse for each band
                                     rmse = zeros(nbands+n_indices-2,1);
                                     % start fit qa = 10
@@ -777,7 +766,7 @@ for i_ids = proc_cols % define in the parent funtion, which can be 1:ncols, and 
                         num_skip = 0; 
                         
                         % defining computed variables
-                        fit_cft = zeros(max_num_c+1,nbands+n_indices-2);
+                        fit_cft = zeros(max_num_c,nbands+n_indices-2);
                         % rmse for each band
                         rmse = zeros(nbands+n_indices-2,1);
                         % record the diference in all bands
@@ -860,7 +849,7 @@ for i_ids = proc_cols % define in the parent funtion, which can be 1:ncols, and 
                             num_skip = 0; 
                         
                            % defining computed variables
-                            fit_cft = zeros(max_num_c+1,nbands+n_indices-2);
+                            fit_cft = zeros(max_num_c,nbands+n_indices-2);
                             % rmse for each band
                             rmse = zeros(nbands+n_indices-2,1);
                             % record the diference in all bands
@@ -1051,7 +1040,7 @@ for i_ids = proc_cols % define in the parent funtion, which can be 1:ncols, and 
             % enough data
             if length(clrx(i_start:end)) >= conse
                 % defining computed variables
-                fit_cft = zeros(max_num_c+1,nbands+n_indices-2);
+                fit_cft = zeros(max_num_c,nbands+n_indices-2);
                 % rmse for each band
                 rmse = zeros(nbands+n_indices-2,1);
                 % end of fit qa = 20
@@ -1097,221 +1086,7 @@ for i_ids = proc_cols % define in the parent funtion, which can be 1:ncols, and 
     end % end of if sum(idgood) statement    
     
     
-    %% Ephemeral detection part
-    if ephemeralDetect
-        id_fit_end = num_fc; % end number of the curves for the id
-
-%         num_fit= id_fit_end-id_fit_start+1; %size(rec_cg,2);
-    %     ephemeralWhole=[]; %reserve the ephemeral changes
-        flag_ephemeral = 0;
-%         rec_cgTemp = [];
-    %     for i_fit=1:num_fit
-        for i_fit=id_fit_start:id_fit_end % For each curves of this pixel
-            ephemeral=[];
-            i_start = rec_cg(i_fit).t_start;
-            i_end = rec_cg(i_fit).t_end;
-%             x_plot=rec_cg(i_fit).t_start:rec_cg(i_fit).t_end;
-% 
-%             indexPred = ismember(x_plot,clrx);
-%             indexObs = ismember(clrx,x_plot);
-            validDate = rec_cg(i_fit).obs; % clear obs for this segment
-            validPred = autoTSPredWL(rec_cg(i_fit).obs,rec_cg(i_fit).coefs(:,:),rec_cg(i_fit).tide); %Predicted values
-            validObs = rec_cg(i_fit).bands; % Satellite values
-
-            ephemeralRMSE = zeros(length(validDate),e_conse);
-%             ephemeralDIR = zeros(length(validDate),nbands+n_indices-2);
-            i = 1;
-
-            while i<= length(validDate)-e_conse
-                e_v_dif = zeros(e_conse,nbands+n_indices-2);
-                % record the magnitude of change
-                e_v_dif_mag = e_v_dif;
-                e_vec_mag = zeros(e_conse,1);
-
-                for i_conse = 1:e_conse
-                    for i_B = 1 : nbands+n_indices-2
-                        e_v_dif_mag(i_conse,i_B) = validObs(i+i_conse,i_B) - validPred(i+i_conse,i_B);
-                        % normalized to z-scores
-                        if sum(i_B == E_B_detect)
-                            % z-scores
-                            e_v_dif(i_conse,i_B) = e_v_dif_mag(i_conse,i_B)/rec_cg(i_fit).rmse(i_B);
-                        end % end if sum
-                    end % end nbands
-
-                    e_vec_mag(i_conse) = norm(e_v_dif(i_conse,E_B_detect))^2;
-                end %end for i_conse
-
-                ephemeralRMSE(i,:) = e_vec_mag;
-
-                if min(e_vec_mag) > e_def_T_cg % change detected
-                    %consider the direction of the consective observations
-                    e_dir_residual = e_v_dif_mag;
-                    e_dir_residual(e_dir_residual<0) = -1; %lower than observation
-                    e_dir_residual(e_dir_residual>0) = 1; %higher than observation
-                    e_dir_whole = sum(e_dir_residual,1)./e_conse;
-%                     e_dir = e_dir_whole(:,E_B_detect);
-                    e_dir_wetter = e_dir_whole(:,[9]);
-                    e_dir_greener = e_dir_whole(:,[8]);
-%                     ephemeralDIR(i,:) = e_dir_whole;
-                    %consider the difference with adjacent years
-                    bDate = validDate(i);
-                    nDate = validDate(i+e_conse);
-                    indexEphemeral = validDate(i:i+e_conse);
-                    vEphemeral = datevec(indexEphemeral);
-                    monthEphemeral = vEphemeral(:,2);
-                    ephemeralObs = validObs(i:i+e_conse,:);
-
-                    dataEphemeral = [monthEphemeral,ephemeralObs];
-                    [C,ia,idx] = unique(dataEphemeral(:,1),'stable');
-                    i_temp = 1;
-                    val = [];
-                    for b_temp = E_B_detect
-                        val(:,i_temp) = accumarray(idx,dataEphemeral(:,b_temp),[],@mean); 
-                        i_temp = i_temp+1;
-                    end
-                    dataEphemeral = [C val];
-
-                    interDate = nDate-bDate+1;
-                    bDatePre = bDate - 365*2;
-                    nDatePre = nDate - 365*2;
-                    listPre = linspace(bDatePre,nDatePre,interDate);
-                    [tempIndex,locPre] = ismember(listPre,validDate);
-                    preObs = validObs(min(locPre(locPre~=0)):max(locPre),:);
-                    preDate = validDate(min(locPre(locPre~=0)):max(locPre));
-                    vPre = datevec(preDate);
-                    monthPre = vPre(:,2);
-                    dataPre = [monthPre,preObs];
-
-                    bDatePro = bDate + 365*2;
-                    nDatePro = nDate + 365*2;
-                    listPro = linspace(bDatePro,nDatePro,interDate);
-                    [tempIndex,locPro] = ismember(listPro,validDate);
-                    proObs = validObs(min(locPro(locPro~=0)):max(locPro),:);
-                    proDate = validDate(min(locPro(locPro~=0)):max(locPro));
-
-                    vPro = datevec(proDate);
-                    monthPro = vPro(:,2);
-                    dataPro = [monthPro,proObs];
-
-                    dataJoint = [dataPre;dataPro];
-
-                    [C,ia,idx] = unique(dataJoint(:,1),'stable');
-                    j_temp = 1;
-                    j_val = [];
-                    for bj_temp = E_B_detect
-                        j_val(:,j_temp) = accumarray(idx,dataJoint(:,bj_temp),[],@mean); 
-                        j_temp = j_temp+1;
-                    end
-                    dataJoint = [C j_val];
-
-                   [~,ia,ib] = intersect(dataJoint(:,1),dataEphemeral(:,1));
-                   C = [dataJoint(ia,1:end),dataEphemeral(ib,2:end)];
-
-        %            RMSE = sqrt(mean((C(:,2) - C(:,3)).^2));
-                    nmse = calNMSE(C(:,2:length(E_B_detect)+1),C(:,length(E_B_detect)+2:end));
-
-                    % confirm the ephemeral changes
-        %              if (abs(sum(e_dir_greener))==2 && (sum(e_dir_wetter)*sum(e_dir_greener)<0))
-                     if ((abs(e_dir_greener)==1) && (e_dir_wetter*e_dir_greener<0))
-                        if nmse > 0.02 % Annual difference
-                            ephemeral_change = [validDate(i),i,validObs(i,:)];
-                            ephemeral = [ephemeral; ephemeral_change];
-                        end % end of nmse of inter annual difference
-                     end 
-                 end %end of threshold judge if min condition
-
-                i = i+1;
-            end %end while
-
-            if ~isempty(ephemeral)
-                i_start_year = datevec(i_start); % rec_cg(i_fit).t_start;
-                i_end_year = datevec(i_end); % rec_cg(i_fit).t_end
-                ephemeral_year = datevec(ephemeral(:,1));
-                index_start_year = ephemeral_year(:,1)-i_start_year(1);
-                index_end_year = ephemeral_year(:,1)-i_end_year(1);
-                index_same_year = diff(ephemeral_year(:,1));
-                index_same_year = [1;index_same_year];
-                index_gap = diff(ephemeral(:,1));
-                index_gap = [181;index_gap];
-                
-                e_index = find((index_start_year~=0) & (index_end_year~=0) & (index_same_year~=0) & index_gap>180);
-                ephemeral= ephemeral(e_index,:);
-                if isempty(ephemeral)
-                    flag_ephemeral = flag_ephemeral+1;
-                    rec_cgTemp(flag_ephemeral) = rec_cg(i_fit);
-                    continue;
-                end
-                eDate = validDate(ephemeral(:,2));
-                eBefore = validDate(ephemeral(:,2)-1);
-
-                %% update rec_cg
-
-                num_split = length(eDate)+1;
- 
-                for i_split = 1:num_split
-                    rec_cgTemp(flag_ephemeral+i_split) = rec_cg(i_fit);
-                    if (i_split == 1)
-                        start_split = 1;
-                        end_split = ephemeral(i_split,2);
-                        rec_cgTemp(flag_ephemeral+i_split).t_end= validDate(end_split-1);%;eBefore(i_split);
-                        rec_cgTemp(flag_ephemeral+i_split).t_break = validDate(end_split);%eDate(i_split);
-                        rec_cgTemp(flag_ephemeral+i_split).num_obs = length(validDate(start_split:end_split))-1;
-                        rec_cgTemp(flag_ephemeral+i_split).change_prob = 3;
-                        rec_cgTemp(flag_ephemeral+i_split).obs = validDate(1:end_split-1);
-                        rec_cgTemp(flag_ephemeral+i_split).bands = rec_cg(i_fit).bands(1:end_split-1,:);
-                        rec_cgTemp(flag_ephemeral+i_split).tide = rec_cg(i_fit).tide(1:end_split-1,:);
-                    elseif(i_split < num_split)
-                        start_split = ephemeral(i_split-1,2);
-                        end_split = ephemeral(i_split,2);
-                        rec_cgTemp(flag_ephemeral+i_split).t_start= validDate(start_split);
-                        rec_cgTemp(flag_ephemeral+i_split).t_end = validDate(end_split-1);
-                        rec_cgTemp(flag_ephemeral+i_split).t_break = validDate(end_split);
-                        rec_cgTemp(flag_ephemeral+i_split).num_obs = length(validDate(start_split:end_split))-1;
-                        rec_cgTemp(flag_ephemeral+i_split).change_prob = 3;
-                        
-                        rec_cgTemp(flag_ephemeral+i_split).obs = validDate(start_split:end_split-1);
-                        rec_cgTemp(flag_ephemeral+i_split).bands = rec_cg(i_fit).bands(start_split:end_split-1,:);
-                        rec_cgTemp(flag_ephemeral+i_split).tide = rec_cg(i_fit).tide(start_split:end_split-1,:);
-                        
-                    elseif (i_split == num_split)
-                        start_split = ephemeral(i_split-1,2);
-                        end_split = rec_cg(i_fit).num_obs;
-                        rec_cgTemp(flag_ephemeral+i_split).t_start= validDate(start_split);
-                        rec_cgTemp(flag_ephemeral+i_split).num_obs = length(validDate(start_split:end_split));
-                        
-                        rec_cgTemp(flag_ephemeral+i_split).obs = validDate(start_split:end_split-1);
-                        rec_cgTemp(flag_ephemeral+i_split).bands = rec_cg(i_fit).bands(start_split:end_split-1,:);
-                        rec_cgTemp(flag_ephemeral+i_split).tide = rec_cg(i_fit).tide(start_split:end_split-1,:);
-                    end
-                    if rec_cgTemp(flag_ephemeral+i_split).num_obs >= min_num_c*n_times
-                    % Update the coefficients and rmse if enough obs existing
-                        update_num_c = update_cft(rec_cgTemp(flag_ephemeral+i_split).num_obs,n_times,min_num_c,mid_num_c,max_num_c,num_c);
-                        for i_B = 1:nbands+n_indices-2
-                            [fit_cft(:,i_B),rmse(i_B)] = ...
-                                autoTSFitWL(rec_cgTemp(flag_ephemeral+i_split).obs,rec_cgTemp(flag_ephemeral+i_split).bands(:,i_B),update_num_c,rec_cgTemp(flag_ephemeral+i_split).tide);
-                        end
-                        rec_cgTemp(flag_ephemeral+i_split).coefs = fit_cft;
-                        rec_cgTemp(flag_ephemeral+i_split).rmse = rmse;
-                    end
-                end
-                flag_ephemeral = flag_ephemeral+num_split;
-            else % ephemeral change does not exist
-                flag_ephemeral = flag_ephemeral+1;
-                rec_cgTemp(flag_ephemeral) = rec_cg(i_fit);
-            end % end of if function
-    %         ephemeralWhole = [ephemeralWhole ephemeral];
-        end % end of i of num fit
-
-        if id_fit_start>1
-            rec_cgBefore = rec_cg(1:id_fit_start-1);
-            rec_cg = [rec_cgBefore rec_cgTemp];
-            num_fc = id_fit_start+flag_ephemeral-1;
-        else
-            rec_cg = rec_cgTemp;
-            num_fc = id_fit_start+flag_ephemeral-1;
-        end
-        clear rec_cgTemp;
-    end % end of ephemeral detection
+   
 end % end of for i_ids loop
 
 end % end of function
@@ -1321,13 +1096,13 @@ function update_num_c = update_cft(i_span,n_times,min_num_c,mid_num_c,max_num_c,
 
 % determine the time series model
 if i_span < mid_num_c*n_times
-    % start with 4 coefficients model
+    % start with 5 coefficients model
     update_num_c = min(min_num_c,num_c);
 elseif i_span < max_num_c*n_times
-    % start with 6 coefficients model
+    % start with 7 coefficients model
     update_num_c = min(mid_num_c,num_c);
 else
-    % start with 8 coefficients model
+    % start with 9 coefficients model
     update_num_c =  min(max_num_c,num_c);
 end
 
@@ -1364,21 +1139,4 @@ function v_dif_linear = durchange(nbands,n_indices, clrx, v_dif_mag)
         v_dif_pred = p(1) .* clrx + p(2);
         v_dif_linear(2, i_B) = sqrt(mean((v_dif_mag(:,i_B) - v_dif_pred).^2));  % Root Mean Squared Error
     end
-end
-
-function nmse=calNMSE(orgSig,recSig,varargin)
-if isempty(varargin)
-    boun = 0;
-else boun = varargin{1};
-end
-if size(orgSig,2)==1       % if signal is 1-D
-    orgSig = orgSig(boun+1:end-boun,:);
-    recSig = recSig(boun+1:end-boun,:);
-else                       % if signal is 2-D or 3-D
-    orgSig = orgSig(boun+1:end-boun,boun+1:end-boun,:);
-    recSig = recSig(boun+1:end-boun,boun+1:end-boun,:);
-end
-mse=norm(orgSig(:)-recSig(:),2)^2/length(orgSig(:));
-sigEner=norm(orgSig(:))^2;
-nmse=(mse/sigEner);
 end
