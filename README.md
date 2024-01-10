@@ -1,7 +1,7 @@
 # DECODE
 Algorithm for DEtection and Characterization of cOastal tiDal wEtlands change (DECODE) using Landsat time series. It can changes in coastal tidal wetlands: providing accurate land cover and land change maps for costal tidal wetland areas fully automated at high spatial resolution (30-meter) for large areas. 
 
-**Update v2** A new version improved with the incorporation of Random Forest classifier and has been applied to monitor the tidal wetland (tidal marsh, mangrove, mangrove diebacks, and tidal flats) changes in the conterminous US from 1986 to 2020. \color{red}The DECODE v2 will be available online soon.
+**Update v2** A new version improved with the incorporation of Random Forest classifier and has been applied to monitor the tidal wetland (tidal marsh, mangrove, mangrove diebacks, and tidal flats) changes in the conterminous US from 1986 to 2020. $$\color{red}The DECODE v2 will be available online soon.$$
 
 Please contact Xiucheng Yang (xiucheng.yang@uconn.edu) and Zhe Zhu (zhe@uconn.edu) at Department of Natural Resources and the Environment, University of Connecticut if you have any questions.
 
