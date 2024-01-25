@@ -1,19 +1,17 @@
 # DECODE
 Algorithm for DEtection and Characterization of cOastal tiDal wEtlands change (DECODE) using Landsat time series. It can changes in coastal tidal wetlands: providing accurate land cover and land change maps for costal tidal wetland areas fully automated at high spatial resolution (30-meter) for large areas. 
 
-**Update v2** A new version improved with the incorporation of Random Forest classifier and has been applied to monitor the tidal wetland (tidal marsh, mangrove, mangrove diebacks, and tidal flats) changes in the conterminous US from 1986 to 2020. **The DECODE v2 will be available online soon.**
+**DECODE v2** An updated version was applied to monitor the tidal wetland (tidal marsh, mangrove, mangrove diebacks, and tidal flats) changes in the conterminous US from 1986 to 2020. Please follow up with "HowToRunDECODE.m" by using the Associated Test data in a local computer or High-Performance Computing (HPC) platform. Note: HPC is highly recommended to run DECODE. 
 
-Please contact Xiucheng Yang (xiucheng.yang@uconn.edu) and Zhe Zhu (zhe@uconn.edu) at Department of Natural Resources and the Environment, University of Connecticut if you have any questions.
+**Associated Test data (~13000 Landsat pixels in Florida) are available to download** [Google Drive Link](https://drive.google.com/file/d/1fTMX_4gL84ZDlSnl-zH_LX9XK_DdXMmx/view?usp=drive_link). 
 
-**Dataset (v1)** are available at [this Mendeley Data](http://dx.doi.org/10.17632/5dz3c5tfw9.2) to download the status of coastal tidal wetlands in the northeastern United States from 1986 to 2020.
+Please contact Xiucheng Yang (xiucheng.yang@uconn.edu) and Zhe Zhu (zhe@uconn.edu) at the Department of Natural Resources and the Environment, University of Connecticut if you have any questions.
 
-**Interactive maps (v1)** are available at [GEE APP for change maps in the NE US](https://gers.users.earthengine.app/view/decodechange) and [GEE APP for cover maps in the NE US](https://gers.users.earthengine.app/view/decodecover).
+**Interactive maps (v2)** are available at [GEE APP for tidal wetlands in the US](https://gers.users.earthengine.app/view/tidalwetlandcover). 
 
-**Interactive maps (v2)** are available at [GEE APP for tidal wetlands in the US](https://gers.users.earthengine.app/view/tidalwetlandcover).
+**Please cite the following paper** 
 
-**Please cite the following paper** Xiucheng Yang, Zhe Zhu, Shi Qiu, Kevin D. Kroeger, Zhiliang Zhu, and Scott Covington. "Detection and characterization of coastal tidal wetland change in the northeastern US using Landsat time series." Remote Sensing of Environment 276 (2022): 113047. [https://doi.org/10.1016/j.rse.2022.113047](https://doi.org/10.1016/j.rse.2022.113047).
+Xiucheng Yang, Zhe Zhu, Shi Qiu, Kevin D. Kroeger, Scott Covington, Nicholas J. Murray, and Zhiliang Zhu. Extreme weather events accelerated tidal wetland loss in the United States (In Review). [DECODE v2]
 
-Xiucheng Yang, Zhe Zhu, Shi Qiu, Kevin D. Kroeger, Scott Covington, Nicholas J. Murray, and Zhiliang Zhu. Extreme weather events accelerated tidal wetland loss in the United States (Submitted for review).
-
-
+Xiucheng Yang, Zhe Zhu, Shi Qiu, Kevin D. Kroeger, Zhiliang Zhu, and Scott Covington. "Detection and characterization of coastal tidal wetland change in the northeastern US using Landsat time series." Remote Sensing of Environment 276 (2022): 113047. [https://doi.org/10.1016/j.rse.2022.113047](https://doi.org/10.1016/j.rse.2022.113047). [DECODE v1]
 
