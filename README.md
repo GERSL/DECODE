@@ -3,7 +3,7 @@ Algorithm for DEtection and Characterization of cOastal tiDal wEtlands change (D
 
 **DECODE v2** An updated version was applied to monitor the tidal wetland (tidal marsh, mangrove, mangrove diebacks, and tidal flats) changes in the conterminous US from 1986 to 2020. Please follow up with "HowToRunDECODE.m" by using the Associated Test data in a local computer or High-Performance Computing (HPC) platform. Note: HPC is highly recommended to run DECODE. 
 
-**Associated Test data (~13000 Landsat pixels in Florida) are available to download** [Google Drive Link](https://drive.google.com/file/d/1fTMX_4gL84ZDlSnl-zH_LX9XK_DdXMmx/view?usp=drive_link). 
+**Associated Test data (~13000 Landsat pixels in Florida) are available to download** [Google Drive Link](https://drive.google.com/file/d/1EmOLwQ4Do8LgHNfZK3Zcm8CPXOBHJbCQ/view?usp=drive_link). 
 
 Please contact Xiucheng Yang (xiucheng.yang@uconn.edu) and Zhe Zhu (zhe@uconn.edu) at the Department of Natural Resources and the Environment, University of Connecticut if you have any questions.
 
