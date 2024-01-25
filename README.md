@@ -7,7 +7,7 @@ Algorithm for DEtection and Characterization of cOastal tiDal wEtlands change (D
 
 Please contact Xiucheng Yang (xiucheng.yang@uconn.edu) and Zhe Zhu (zhe@uconn.edu) at the Department of Natural Resources and the Environment, University of Connecticut if you have any questions.
 
-**Interactive maps (v2)** are available at [GEE APP for tidal wetlands in the US](https://gers.users.earthengine.app/view/tidalwetlandcover) with the link to download the US product from GEE. 
+**Interactive maps (v2)** are available at [GEE APP for tidal wetlands in the US](https://gers.users.earthengine.app/view/tidalwetlandcover) with the link to download the US product from [GEE](https://code.earthengine.google.com/b0a479163d67640ee01c053f095e40c0). 
 
 **Please cite the following paper** 
 
