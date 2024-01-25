@@ -1,4 +1,4 @@
-# DECODE
+# DECODE (Updated on Jan. 25, 2024)
 Algorithm for DEtection and Characterization of cOastal tiDal wEtlands change (DECODE) using Landsat time series. It can changes in coastal tidal wetlands: providing accurate land cover and land change maps for costal tidal wetland areas fully automated at high spatial resolution (30-meter) for large areas. 
 
 **DECODE v2** An updated version was applied to monitor the tidal wetland (tidal marsh, mangrove, mangrove diebacks, and tidal flats) changes in the conterminous US from 1986 to 2020. Please follow up with "HowToRunDECODE.m" by using the Associated Test data in a local computer or High-Performance Computing (HPC) platform. Note: HPC is highly recommended to run DECODE. 
