@@ -1,4 +1,4 @@
-# DECODE (Updated on July 19, 2025)
+# DECODE (Updated on Sep 19, 2025)
 Algorithm for DEtection and Characterization of cOastal tiDal wEtlands change (DECODE) using Landsat time series. It can provide changes in coastal tidal wetlands by providing accurate land cover and land change maps for coastal tidal wetland areas, fully automated at high spatial resolution (30 meters) for large areas. 
 
 **DECODE v2 [Continuously updated]** An updated version was applied to monitor the tidal wetland (tidal marsh, mangrove, mangrove diebacks, and tidal flats) changes in the conterminous US from 1986 to 2023. Please follow up with "HowToRunDECODE.m" by using the Associated Test data on a local computer or High-Performance Computing (HPC) platform. Note: HPC is highly recommended to run DECODE. 
@@ -11,7 +11,7 @@ Please get in touch with Xiucheng Yang (xiucheng.yang@uconn.edu) and Zhe Zhu (zh
 
 **Please cite the following paper** 
 
-Xiucheng Yang, Zhe Zhu, Shi Qiu, Kevin D. Kroeger, Scott Covington, Nicholas J. Murray, and Zhiliang Zhu. Extreme weather outpaces relative sea level rise in accelerating US tidal wetland loss (Reviewing). [DECODE v2]
+Xiucheng Yang, Zhe Zhu, Shi Qiu, Kevin D. Kroeger, Scott Covington, Nicholas J. Murray, and Zhiliang Zhu. The accelerating loss and shifting dynamics of US tidal wetlands (Reviewing). [DECODE v2]
 
 Xiucheng Yang, Zhe Zhu, Kevin D. Kroeger, Shi Qiu, Scott Covington, Jeremy R. Conrad, and Zhiliang Zhu. Tracking mangrove condition changes using dense Landsat time series. Remote Sensing of Environment 276 (2024): 114461. [https://doi.org/10.1016/j.rse.2024.114461](https://doi.org/10.1016/j.rse.2024.114461). [DECODER -- DECODE and Recovery/Resilience]
 
